@@ -32,7 +32,7 @@ public class Ciphers
 		byte[] MACkey = Arrays.copyOfRange(hash, 16, 32);
 		
 		//Text file split into an array of bytes
-		String stringPath = path.toString() + "\\" + fileName;
+		String stringPath = path.toString();
 		Path newPath = Paths.get(stringPath);
 		byte[] input = Files.readAllBytes(newPath);
 		
@@ -59,8 +59,7 @@ public class Ciphers
 		byte[] authKey = mac.doFinal();
 		
 		//Write encrypted data to new file appended with .enc and remove old one
-		String encFileName = fileName + ".enc";
-		File encFile = new File(path.toString() + "\\" + encFileName);
+		File encFile = new File(path.toString() + ".enc");
 		FileOutputStream fos = new FileOutputStream(encFile);
 		fos.write(iv);
 		fos.write(encrypted);
@@ -75,7 +74,7 @@ public class Ciphers
 	public static void decrypt(String password, Path path, String fileName) throws NoSuchAlgorithmException, IOException, NoSuchPaddingException, InvalidKeyException, InvalidAlgorithmParameterException, IllegalBlockSizeException, BadPaddingException
 	{
 		//Convert entire file into a byte array
-		String stringPath = path.toString() + "\\" + fileName;
+		String stringPath = path.toString();
 		Path newPath = Paths.get(stringPath);
 		byte[] input = Files.readAllBytes(newPath); 
 		
@@ -120,9 +119,10 @@ public class Ciphers
 			
 			//Write to new file without .enc and remove encrypted file
 			if (fileName.endsWith(".enc")) 
-			{
-				fileName = fileName.substring(0, fileName.length() - 4);
-				File decFile = new File(path.toString() + "\\" + fileName);
+			{	
+				String decFilePath = path.toString();
+				decFilePath = decFilePath.substring(0, decFilePath.length() - 4);
+				File decFile = new File(decFilePath);
 				FileOutputStream fos = new FileOutputStream(decFile);
 				fos.write(decrypted);
 				File file = newPath.toFile();
