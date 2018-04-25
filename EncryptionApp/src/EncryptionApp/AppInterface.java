@@ -154,9 +154,6 @@ public class AppInterface {
     			
     			Path path = file.toPath();
     			
-    			System.out.println("File Name: " + fileName);
-    			System.out.println("File Path: " + path);
-    			
     			try 
     			{
 					Ciphers.encrypt(fullPassword, path, fileName);
