@@ -103,8 +103,10 @@ public class AppInterface {
 		lblNewLabel.setBounds(138, 24, 437, 95);
 		frame.getContentPane().add(lblNewLabel);
 		
+		    
 		/**
-		 * Actions for the Search button. Retrieves a file and copies its path and name into the text fields.
+		 * Actions for the Search button. Retrieves a file and copies its path and name into the text fields to be passed on
+		 * to the Ciphers class.
 		 */
 		JButton btnSearch = new JButton("Search");
 		btnSearch.addActionListener(new ActionListener() {
