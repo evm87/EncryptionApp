@@ -121,7 +121,7 @@ public class Ciphers
 			if (fileName.endsWith(".enc")) 
 			{	
 				String decFilePath = path.toString();
-				decFilePath = decFilePath.substring(0, decFilePath.length() - 4);
+				//decFilePath = decFilePath.substring(0, decFilePath.length() - 4);
 				File decFile = new File(decFilePath);
 				FileOutputStream fos = new FileOutputStream(decFile);
 				fos.write(decrypted);

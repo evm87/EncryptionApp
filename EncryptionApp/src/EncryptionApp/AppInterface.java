@@ -36,6 +36,7 @@ public class AppInterface {
 	private JTextField pwTextField;
 	Ciphers ciphers = new Ciphers();
 	private JTextField fileNameTextField;
+	private JTextField passwordConfirmField;
 
 	/**
 	 * Launch the application.
@@ -67,17 +68,17 @@ public class AppInterface {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame("DataSafe v2.1");
+		frame = new JFrame("DataSafe v2.2");
 		frame.setBounds(100, 100, 737, 454);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JButton btnEncrypt = new JButton("Encrypt");
-		btnEncrypt.setBounds(211, 287, 97, 25);
+		btnEncrypt.setBounds(221, 303, 97, 25);
 		frame.getContentPane().add(btnEncrypt);
 		
 		JButton btnDecrypt = new JButton("Decrypt");
-		btnDecrypt.setBounds(396, 287, 97, 25);
+		btnDecrypt.setBounds(398, 303, 97, 25);
 		frame.getContentPane().add(btnDecrypt);
 		
 		fileNameTextField = new JTextField();
@@ -137,6 +138,14 @@ public class AppInterface {
 		lblFileName_1.setBounds(249, 146, 83, 16);
 		frame.getContentPane().add(lblFileName_1);
 		
+		passwordConfirmField = new JPasswordField();
+		passwordConfirmField.setBounds(328, 245, 116, 22);
+		frame.getContentPane().add(passwordConfirmField);
+		
+		JLabel lblConfirmPassword = new JLabel("Confirm Password:");
+		lblConfirmPassword.setBounds(206, 248, 126, 16);
+		frame.getContentPane().add(lblConfirmPassword);
+		
 		
 		/**
 		 * Action for the encrypt button. Retrieves the working directory of the application to be sent to the Ciphers class along with the file name
@@ -151,39 +160,48 @@ public class AppInterface {
     			//Not secure! Will change...
     			String fullPassword = pwTextField.getText();
     			String filePath = filePathTextField.getText();
+    			String confirmedPassword = passwordConfirmField.getText();
     	        
     			File file = new File(filePath);
     			
     			Path path = file.toPath();
     			
-    			try 
+    			if (fullPassword.equals(confirmedPassword))
     			{
-					Ciphers.encrypt(fullPassword, path, fileName);
-					JOptionPane.showMessageDialog(null,"File Encrypted Successfully");
-    			} catch (NoSuchFileException e) {
-    				JOptionPane.showMessageDialog(null,"File Not Found!");
-				} catch (InvalidKeyException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidAlgorithmParameterException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalBlockSizeException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (BadPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+    			
+	    			try 
+	    			{
+						Ciphers.encrypt(fullPassword, path, fileName);
+						JOptionPane.showMessageDialog(null,"File Encrypted Successfully");
+	    			} catch (NoSuchFileException e) {
+	    				JOptionPane.showMessageDialog(null,"File Not Found!");
+					} catch (InvalidKeyException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvalidAlgorithmParameterException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalBlockSizeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (BadPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+    			}
+    			else
+    			{
+    				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
+    			}
     			
     		}
     	});
@@ -200,38 +218,46 @@ public class AppInterface {
     			//Not secure! Will change...
     			String fullPassword = pwTextField.getText();
     			String filePath = filePathTextField.getText();
+    			String confirmedPassword = passwordConfirmField.getText();
     	        
     			File file = new File(filePath);
     			
     			Path path = file.toPath();
     			
-    			try 
+    			if (fullPassword.equals(confirmedPassword))
     			{
-					Ciphers.decrypt(fullPassword, path, fileName);
-					JOptionPane.showMessageDialog(null,"File Decrypted Succesfully");
-    			} catch (NoSuchFileException e) {
-    				JOptionPane.showMessageDialog(null,"File Not Found!");
-				} catch (InvalidKeyException e) {
-					JOptionPane.showMessageDialog(null,"Invalid Password or Corrupted File");
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (InvalidAlgorithmParameterException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IllegalBlockSizeException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (BadPaddingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+	    			try 
+	    			{
+						Ciphers.decrypt(fullPassword, path, fileName);
+						JOptionPane.showMessageDialog(null,"File Decrypted Successfully");
+	    			} catch (NoSuchFileException e) {
+	    				JOptionPane.showMessageDialog(null,"File Not Found!");
+					} catch (InvalidKeyException e) {
+						JOptionPane.showMessageDialog(null,"Invalid Password or Corrupted File");
+					} catch (NoSuchAlgorithmException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (NoSuchPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (InvalidAlgorithmParameterException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IllegalBlockSizeException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (BadPaddingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} 
+    			}
+    			else
+    			{
+    				JOptionPane.showMessageDialog(null, "Passwords Do Not Match");
+    			}
     			
     		}
     	});
